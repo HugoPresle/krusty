@@ -1,0 +1,8 @@
+.image
+{
+    height:500 ;
+    width:500;
+    border:solid black;
+    float: left;
+    clear: both;
+}
