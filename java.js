@@ -52,7 +52,7 @@ function objectPoint(x,y)
     this.y=y;
 
 }
-function addMap(point1,point2) 
+function addCarre(point1,point2) 
 {
 
     //crée l'element area
@@ -60,28 +60,113 @@ function addMap(point1,point2)
     newArea.shape="rect";
     newArea.href="#";
     newArea.coords=point1.x+","+point1.y+","+point2.x+","+point2.y;
+    
+    //crée une div 
+    var newdiv=document.createElement("div");
+    newdiv.style.top=point1.x;
+    newdiv.style.left=point1.y;
+    newdiv.style.width=point2.x;
+    newdiv.style.height=point2.y;
+    newdiv.style.border="solid blue";
+    newdiv.style.position="absolute";
 
     //affiche l'element area sur la map
     document.getElementById("krusty").insertAdjacentElement("beforeend",newArea);
+    document.getElementById("divbord").insertAdjacentElement("afterbegin",newdiv);
 
     
 }
 
-var objTab=[];
-function createObjCarre() 
+function addRond(point1,point2,rayon) 
 {
-    id= document.getElementById("id").value
-    type= document.getElementById("type").value
-    id= document.getElementById("id").value
 
-    var point1 = new objectPoint(document.getElementById("x1").value,document.getElementById("y1").value);
-    var point2 = new objectPoint(document.getElementById("x2").value,document.getElementById("y2").value);
-    point=[point1,point2];
+    //crée l'element area
+    var newArea=document.createElement("area");
+    newArea.shape="circle";
+    newArea.href="#";
+    newArea.coords=point1+","+point2+","+rayon;
+    
+    //crée une div 
+    var newdiv=document.createElement("div");
+    newdiv.style.top=parseInt(point1)-parseInt(rayon);
+    newdiv.style.left=parseInt(rayon);
+    newdiv.style.width=parseInt(point1)+parseInt(rayon);
+    newdiv.style.height=parseInt(point2)+parseInt(rayon);
+    newdiv.style.border="solid red";
+    newdiv.style.position="absolute";
+    newdiv.style.borderRadius="50%";
 
-    var obj= new objectAreaCarre(id,type,point);
-    this.objTab.push(obj);
-    addMap(point1,point2);
+    //affiche l'element area sur la map
+    document.getElementById("krusty").insertAdjacentElement("beforeend",newArea);
+    document.getElementById("divbord").insertAdjacentElement("afterbegin",newdiv);
+
+    
+}
+var objTab=[];
+function createObj() 
+{
+    id= document.getElementById("id").value;
+    type= document.getElementById("type").value;
+    act= document.getElementById("act").value;
+
+    // tryCtach si ça ne marche pas 
+    try 
+    {
+        if (type=="carre") 
+        {  
+            //POINT CARRE
+            var point1 = new objectPoint(document.getElementById("x1").value,document.getElementById("y1").value);
+            var point2 = new objectPoint(document.getElementById("x2").value,document.getElementById("y2").value);
+            point=[point1,point2];
+            addCarre(point1,point2);
+        } 
+
+        else if (type=="cercle")
+        { 
+            //POINT ROND
+            var point1 = document.getElementById("x").value;
+            var point2 = document.getElementById("y").value;
+            var rayon= document.getElementById("R").value;
+            addRond(point1,point2,rayon)
+            point=[point1,point2,rayon];
+        }
+        else
+        {
+            point=[0];
+        }
+        
+        var obj= new objectAreaCarre(id,type,point);
+        this.objTab.push(obj);
+    } 
+    catch (error) 
+    {
+       console.log(error); 
+       window.alert("Un problème rencontré, veuillez ressayer.");
+    }
+    
     //TEST
     console.log(this.objTab);  
 }
 
+function Up() 
+{
+    
+    var lastMap=this.objTab.find(indexobjTab.length);
+    console.log(lastMap);
+    window.alert("UP");
+}
+
+function Right() 
+{
+    window.alert("RIGHT"); 
+}
+
+function Left() 
+{
+    window.alert("LEFT"); 
+}
+
+function Down() 
+{
+    window.alert("Down"); 
+}
