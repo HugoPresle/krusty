@@ -103,12 +103,11 @@ function addRond(point1,point2,rayon)
     
 }
 var objTab=[];
+var id=1;
 function createObj() 
 {
-    id= document.getElementById("id").value;
     type= document.getElementById("type").value;
     act= document.getElementById("act").value;
-
     // tryCtach si ça ne marche pas 
     try 
     {
@@ -136,6 +135,7 @@ function createObj()
         }
         
         var obj= new objectAreaCarre(id,type,point);
+        id++;
         this.objTab.push(obj);
     } 
     catch (error) 
@@ -150,9 +150,8 @@ function createObj()
 
 function Up() 
 {
-    
-    var lastMap=this.objTab.find(indexobjTab.length);
-    console.log(lastMap);
+    var length=this.objTab.lenght;
+    console.log(this.objTab[length]);
     window.alert("UP");
 }
 
