@@ -58,8 +58,8 @@ function addCarre(point1,point2)
     //crée l'element area
     var newArea=document.createElement("area");
     newArea.shape="rect";
-    newArea.href="#";
     newArea.coords=point1.x+","+point1.y+","+point2.x+","+point2.y;
+    newArea.href="#";
     
     //crée une div 
     var newdiv=document.createElement("div");
@@ -83,8 +83,8 @@ function addRond(point1,point2,rayon)
     //crée l'element area
     var newArea=document.createElement("area");
     newArea.shape="circle";
-    newArea.href="#";
     newArea.coords=point1+","+point2+","+rayon;
+    newArea.href="#";
     
     //crée une div 
     var newdiv=document.createElement("div");
