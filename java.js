@@ -1,3 +1,4 @@
+/********************* CSS function *********************/
 function imgChange()
 {
     var newImage= document.getElementById("newImg").value;
@@ -31,8 +32,12 @@ function selectedType(selected)
     
 }
 
+/********************* PUBLIC VAR *********************/
 
-/*************************************************/
+var objTab=[];
+var id=0;
+
+/********************* CLASS *********************/
 function objectMap(cheminImage,nomMap,tabObjectArea)
 {
     this.cheminImage=cheminImage;
@@ -53,6 +58,9 @@ function objectPoint(x,y)
     this.y=y;
 
 }
+
+/********************* FUNCTION *********************/
+
 function addCarre(point1,point2,id) 
 {
 
@@ -107,8 +115,6 @@ function addRond(point1,point2,rayon,id)
 
     
 }
-var objTab=[];
-var id=0;
 function createObj() 
 {
     type= document.getElementById("type").value;
@@ -264,7 +270,6 @@ function Down()
         // addRond()
     }
 }
-
 
 function RemoveById(id) 
 {
