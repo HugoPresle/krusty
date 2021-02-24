@@ -1,9 +1,9 @@
 /********************* CSS function *********************/
 function imgChange()
 {
-    var newImage= document.getElementById("newImg").value;
+    var newImage= document.getElementById("newImg").files[0].name;
     console.log(newImage);
-    document.getElementById("imgKrusty").path=newImage;
+    document.getElementById("imgKrusty").src=newImage;
 }
 
 function selectedType(selected) 
@@ -36,6 +36,7 @@ function selectedType(selected)
 
 var objTab=[];
 var id=0;
+var idArrowUse=null;
 
 /********************* CLASS *********************/
 function objectMap(cheminImage,nomMap,tabObjectArea)
@@ -309,6 +310,8 @@ function CreateTable(obj)
     var cell4 = row.insertCell(3);
     var cell5 = row.insertCell(4);
     var cell6 = row.insertCell(5);
+    var cell7 = row.insertCell(6);
+    
 
     cell1.innerHTML = obj.idArea;
     cell2.innerHTML = obj.typeAire;
@@ -325,7 +328,8 @@ function CreateTable(obj)
     }
 
     cell5.innerHTML='<button onclick="Up('+obj.idArea+');"> <i class="fas fa-arrow-up"> </i> </button><button onclick="Right('+obj.idArea+');"> <i class="fas fa-arrow-right"> </i> </button><button onclick="Left('+obj.idArea+');"> <i class="fas fa-arrow-left"> </i> </button><button onclick="Down('+obj.idArea+');"> <i class="fas fa-arrow-down"> </i> </button>';
-    cell6.innerHTML='<a onclick="removeTable('+table.rows.length+','+obj.idArea+')" style="color:red;cursor:pointer;"><i class="fas fa-trash"></i></a>';
+    cell7.innerHTML='<a onclick="removeTable('+table.rows.length+','+obj.idArea+')" style="color:red;cursor:pointer;"><i class="fas fa-trash"></i></a>';
+    cell6.innerHTML='<a onclick="ActiverKey('+obj.idArea+')" style="color:green;cursor:pointer;"><i class="fas fa-arrows-alt"></i></a>';
     
 }
 function removeTable(params,objId) 
@@ -344,3 +348,60 @@ function removeTable(params,objId)
         window.alert("Pour suprimer: Veuillez sélectionner la dernière ligne");
     }
 }
+
+function ActiverKey(id) 
+{
+ idArrowUse=id;   
+}
+
+
+/********************* KEY EVENT *********************/
+document.addEventListener('keyup', (e) => 
+{
+    if (objTab.length!=0) 
+    {   
+        if (idArrowUse!=null) 
+        {
+            try 
+            {
+                switch (e.key) 
+                {
+                    case 'ArrowUp':
+                        Up(idArrowUse);
+                    break;
+    
+                    case 'ArrowRight':
+                        Right(idArrowUse);
+                    break;
+                    case 'ArrowLeft':
+                        Left(idArrowUse);
+                    break;
+    
+                    case 'ArrowDown':
+                        Down(idArrowUse);
+                    break;
+                } 
+            } 
+            catch (error) 
+            {
+                window.alert("Cliquer sur la petite fleche verte pour sélectionner une ligne a déplacé avec les flèches directionnelles");
+            }
+        } 
+        else 
+        {
+            window.alert("Cliquer sur la petite fleche verte pour sélectionner une ligne a déplacé avec les flèches directionnelles");
+        }
+        
+    }
+    else 
+    {
+        window.alert("Veuillez créer un carré/cercle pour utiliser les flèches directionnelles");
+    }
+  });
+
+  // document.getElementById(id+"_area").addEventListener("mouseover", mouseOver);
+
+// function mouseOver() {
+//   document.getElementById(id+"_area").style.border="solid purple";;
+// }
+
