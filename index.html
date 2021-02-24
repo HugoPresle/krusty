@@ -30,10 +30,22 @@
                 <button class="btn btn-secondary"> Modifier</button>
                 <button class="btn btn-success" onclick="createObj();"> Créer</button>
 
-                <button onclick="Up();"> <i class="fas fa-arrow-up"> </i> </button>
-                <button onclick="Right();"> <i class="fas fa-arrow-right"> </i> </button>
-                <button onclick="Left();"> <i class="fas fa-arrow-left"> </i> </button>
-                <button onclick="Down();"> <i class="fas fa-arrow-down"> </i> </button>
+
+                <div>
+                    <table class="table" id="dataTable">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Type Aire</th>
+                                <th>Point 1</th>
+                                <th>Point 2</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                
             </div>
 
             <div class="col-md-3" id="Area">
@@ -84,7 +96,7 @@
                 <div id="polygonesDiv" style="visibility: hidden;">
                     <h3>poly</h3>
                 </div>
-            </div>
         </div>
+    </div>
 </body>
 </html>

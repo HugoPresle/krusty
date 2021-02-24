@@ -45,7 +45,7 @@ function objectMap(cheminImage,nomMap,tabObjectArea)
     this.tabObjectArea=tabObjectArea;
 
 }
-function objectAreaCarre(idArea,typeAire,ensemblePoint)
+function objectArea(idArea,typeAire,ensemblePoint)
 {
     this.idArea=idArea;
     this.typeAire=typeAire;
@@ -115,6 +115,7 @@ function addRond(point1,point2,rayon,id)
 
     
 }
+
 function createObj() 
 {
     type= document.getElementById("type").value;
@@ -137,7 +138,7 @@ function createObj()
             var point1 = document.getElementById("x").value;
             var point2 = document.getElementById("y").value;
             var rayon= document.getElementById("R").value;
-            addRond(point1,point2,rayon)
+            addRond(point1,point2,rayon,id)
             point=[point1,point2,rayon,id];
         }
         else
@@ -145,8 +146,9 @@ function createObj()
             point=[0];
         }
         
-        var obj= new objectAreaCarre(id,type,point);
+        var obj= new objectArea(id,type,point);
         id++;
+        CreateTable(obj);
         this.objTab.push(obj);
     } 
     catch (error) 
@@ -159,53 +161,61 @@ function createObj()
     console.log(this.objTab);  
 }
 
-function Up() 
+function Up(id) 
 {
-    var leng=objTab.length-1;
-    var type=objTab[0].typeAire;
+    var type=objTab[id].typeAire;
 
-    // avant de suprr on recupe les ancienne coord +1
-
-    var point1Old = new objectPoint(objTab[leng].ensemblePoint[0].x,objTab[leng].ensemblePoint[0].y);
-    var point2Old = new objectPoint(objTab[leng].ensemblePoint[1].x,objTab[leng].ensemblePoint[1].y)
-
-    //on suprime la div ainsi que l'objet + l'area puis on recrée avec les nouvels coord
-    
     if (type=="carre") 
     {
-        RemoveById(leng);
+        // avant de suprr on recupe les ancienne coord +1
+        var point1Old = new objectPoint(objTab[id].ensemblePoint[0].x,objTab[id].ensemblePoint[0].y);
+        var point2Old = new objectPoint(objTab[id].ensemblePoint[1].x,objTab[id].ensemblePoint[1].y);
+
+        //on suprime la div ainsi que l'objet + l'area puis on recrée avec les nouvels coord
+
+        RemoveById(id);
         var newPoint=new objectPoint(point1Old.x,parseInt(point1Old.y)-1)
-        addCarre(newPoint,point2Old,leng);
-        UpdateObj(newPoint,point2Old,leng,type)
-        document.getElementById(leng).style.height=parseInt(document.getElementById(leng).style.height)-1;
+        addCarre(newPoint,point2Old,id);
+        UpdateObj(newPoint,point2Old,id,type)
+        document.getElementById(id).style.height=parseInt(document.getElementById(id).style.height)-1;
     }
     else if (type=="cercle") 
     {
         
         window.alert("Pas encore possible de deplacer des cercles. Veuillez recréer un rectangle ou faire F5 pour deplacer à nouveau");
-        // addRond()
+        
+        // // avant de suprr on recupe les ancienne coord +1
+        // var pointOldx = objTab[id].ensemblePoint[0];
+        // var pointOldy = objTab[id].ensemblePoint[1];
+        // var rayonOld = objTab[id].ensemblePoint[2];
+        
+
+        // RemoveById(id);
+        // var newPoint=parseInt(pointOldy)-1;
+        // addRond(pointOldx,newPoint,rayonOld,id);
+        // UpdateObj(pointOldx,newPoint,id,type)
+        // document.getElementById(id).style.height=parseInt(document.getElementById(id).style.height)-1;
     }
 }
 
-function Right() 
+function Right(id) 
 {  
-    var leng=objTab.length-1;
     var type=objTab[0].typeAire;
 
     // avant de suprr on recupe les ancienne coord +1
 
-    var point1Old = new objectPoint(objTab[leng].ensemblePoint[0].x,objTab[leng].ensemblePoint[0].y);
-    var point2Old = new objectPoint(objTab[leng].ensemblePoint[1].x,objTab[leng].ensemblePoint[1].y)
+    var point1Old = new objectPoint(objTab[id].ensemblePoint[0].x,objTab[id].ensemblePoint[0].y);
+    var point2Old = new objectPoint(objTab[id].ensemblePoint[1].x,objTab[id].ensemblePoint[1].y)
 
     //on suprime la div ainsi que l'objet + l'area puis on recrée avec les nouvels coord
     
     if (type=="carre") 
     {
-        RemoveById(leng);
+        RemoveById(id);
         var newPoint=new objectPoint(parseInt(point1Old.x)+1,point1Old.y)
-        addCarre(newPoint,point2Old,leng);
-        UpdateObj(newPoint,point2Old,leng,type)
-        document.getElementById(leng).style.height=parseInt(document.getElementById(leng).style.width)+1;
+        addCarre(newPoint,point2Old,id);
+        UpdateObj(newPoint,point2Old,id,type)
+        document.getElementById(id).style.height=parseInt(document.getElementById(id).style.width)+1;
     }
     else if (type=="cercle") 
     {
@@ -215,25 +225,24 @@ function Right()
     }
 }
 
-function Left() 
+function Left(id) 
 {
-    var leng=objTab.length-1;
     var type=objTab[0].typeAire;
 
     // avant de suprr on recupe les ancienne coord +1
 
-    var point1Old = new objectPoint(objTab[leng].ensemblePoint[0].x,objTab[leng].ensemblePoint[0].y);
-    var point2Old = new objectPoint(objTab[leng].ensemblePoint[1].x,objTab[leng].ensemblePoint[1].y)
+    var point1Old = new objectPoint(objTab[id].ensemblePoint[0].x,objTab[id].ensemblePoint[0].y);
+    var point2Old = new objectPoint(objTab[id].ensemblePoint[1].x,objTab[id].ensemblePoint[1].y)
 
     //on suprime la div ainsi que l'objet + l'area puis on recrée avec les nouvels coord
     
     if (type=="carre") 
     {
-        RemoveById(leng);
+        RemoveById(id);
         var newPoint=new objectPoint(parseInt(point1Old.x)-1,point1Old.y)
-        addCarre(newPoint,point2Old,leng);
-        UpdateObj(newPoint,point2Old,leng,type)
-        document.getElementById(leng).style.height=parseInt(document.getElementById(leng).style.left)-1;
+        addCarre(newPoint,point2Old,id);
+        UpdateObj(newPoint,point2Old,id,type)
+        document.getElementById(id).style.height=parseInt(document.getElementById(id).style.left)-1;
     }
     else if (type=="cercle") 
     {
@@ -243,25 +252,24 @@ function Left()
     }
 }
 
-function Down() 
+function Down(id) 
 {
-    var leng=objTab.length-1;
     var type=objTab[0].typeAire;
 
     // avant de suprr on recupe les ancienne coord +1
 
-    var point1Old = new objectPoint(objTab[leng].ensemblePoint[0].x,objTab[leng].ensemblePoint[0].y);
-    var point2Old = new objectPoint(objTab[leng].ensemblePoint[1].x,objTab[leng].ensemblePoint[1].y)
+    var point1Old = new objectPoint(objTab[id].ensemblePoint[0].x,objTab[id].ensemblePoint[0].y);
+    var point2Old = new objectPoint(objTab[id].ensemblePoint[1].x,objTab[id].ensemblePoint[1].y)
 
     //on suprime la div ainsi que l'objet + l'area puis on recrée avec les nouvels coord
     
     if (type=="carre") 
     {
-        RemoveById(leng);
+        RemoveById(id);
         var newPoint=new objectPoint(point1Old.x,parseInt(point1Old.y)+1)
-        addCarre(newPoint,point2Old,leng);
-        UpdateObj(newPoint,point2Old,leng,type)
-        document.getElementById(leng).style.height=parseInt(document.getElementById(leng).style.height)+1;
+        addCarre(newPoint,point2Old,id);
+        UpdateObj(newPoint,point2Old,id,type)
+        document.getElementById(id).style.height=parseInt(document.getElementById(id).style.height)+1;
     }
     else if (type=="cercle") 
     {
@@ -286,6 +294,53 @@ function RemoveById(id)
 function UpdateObj(P1,P2,id,type) 
 {
     point=[P1,P2];
-    var obj= new objectAreaCarre(id,type,point);
+    var obj= new objectArea(id,type,point);
     this.objTab.push(obj);
+}
+
+//Creation tableau lorsque obj créer
+function CreateTable(obj) 
+{
+    var table = document.getElementById("dataTable");
+    var row = table.insertRow(table.rows.length);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    var cell4 = row.insertCell(3);
+    var cell5 = row.insertCell(4);
+    var cell6 = row.insertCell(5);
+
+    cell1.innerHTML = obj.idArea;
+    cell2.innerHTML = obj.typeAire;
+
+    if (obj.typeAire=="carre") 
+    {
+        cell3.innerHTML = 'X: '+obj.ensemblePoint[0].x.toString()+' | Y: '+obj.ensemblePoint[0].y.toString();
+        cell4.innerHTML = 'X: '+obj.ensemblePoint[1].x.toString()+' | Y: '+obj.ensemblePoint[1].y.toString();
+    }
+    else if (obj.typeAire=="cercle")
+    {
+        cell3.innerHTML = 'X: '+obj.ensemblePoint[0].toString();
+        cell4.innerHTML = 'Y: '+obj.ensemblePoint[1].toString();
+    }
+
+    cell5.innerHTML='<button onclick="Up('+obj.idArea+');"> <i class="fas fa-arrow-up"> </i> </button><button onclick="Right('+obj.idArea+');"> <i class="fas fa-arrow-right"> </i> </button><button onclick="Left('+obj.idArea+');"> <i class="fas fa-arrow-left"> </i> </button><button onclick="Down('+obj.idArea+');"> <i class="fas fa-arrow-down"> </i> </button>';
+    cell6.innerHTML='<a onclick="removeTable('+table.rows.length+','+obj.idArea+')" style="color:red;cursor:pointer;"><i class="fas fa-trash"></i></a>';
+    
+}
+function removeTable(params,objId) 
+{
+    params--;
+    var table=document.getElementById("dataTable");
+    
+    if (params+1==table.rows.length) 
+    {
+        RemoveById(objId);
+        table.deleteRow(params);
+    }
+
+    else 
+    {
+        window.alert("Pour suprimer: Veuillez sélectionner la dernière ligne");
+    }
 }
